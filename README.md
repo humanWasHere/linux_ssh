@@ -11,7 +11,8 @@ Sélectionner où l'on veut stocker la pair de clé RSA
 
 ### Copier la l'ID de clé sur le serveur
 Adapter le format suivant  
-```ssh-copy-id username@remote_host```
+```ssh-copy-id username@remote_host```  
+On copie la clée publique client pour l'ajouter au server dans le fichier autorized_keys.
 
 ### Se connecter en ssh
 ```ssh username@remote_host```
