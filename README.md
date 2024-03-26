@@ -1,28 +1,54 @@
-# Configuration SSH Linux
+# Configuration SSH Linux / VSCode
 
-## Commandes pour créer et utiliser des clés SSH sur Linux
+## Create and use SSH keys
 
-### Générer les clés
-```ssh-keygen```  
-On peut ajouter un drapeau comme à la ligne suivante  
-```ssh-keygen -b 4096```  
+### Generate keys
+```
+ssh-keygen
+```  
+A flag can be added
+```
+ssh-keygen -b 4096
+```  
 
-Sélectionner où l'on veut stocker la pair de clé RSA
+Select where you want your RSA key to be stored
 
-### Copier la l'ID de clé sur le serveur
-Adapter le format suivant  
-```ssh-copy-id username@remote_host```  
-On copie la clée publique client pour l'ajouter au server dans le fichier autorized_keys.
+### Copy key's ID on server
+Adapt following line to your situation  
+```
+ssh-copy-id <username>@<remote_host>
+```  
+Copy public key to add to server in "autorized_keys" file.
 
-### Se connecter en ssh
-```ssh username@remote_host```
+### Connect in SSH
+```
+ssh username@remote_host
+```
 
-### Retirer l'authentification par mdp
-```sudo nano /etc/ssh/sshd_config```  
-Vérifier que la ligne suivante existe et n'est pas commentée  
-```PasswordAuthentication no```  
-Puis relancer ssh  
-```sudo systemctl restart ssh```  
-Se reconnecter avec la commande vu précédemment
+### Remove auth by password
+```
+sudo nano /etc/ssh/sshd_config
+```  
+Verify than following line exists and is not commented  
+```
+PasswordAuthentication no
+```  
+Run ssh again  
+```
+sudo systemctl restart ssh
+```  
+Reconnect in SSH (as viewed above)
 
 <!--https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-20-04-->
+
+## SSH for VSCode
+The purpose of doing a SSH here is to connect VSCode (installed in Windows env) to your Unix env.  
+VSCode/Windows acts as a client, it must give its public key to the "server".  
+In Windows, open a cmd/powershell and run :  
+```
+ssh-keygen -t rsa -b 4096
+```
+Let it stored in the default path and enter no passphrase.  
+Then copy the RSA key in ```id_rsa.pub``` stored in ```C:\Users\<your_user_name>\.ssh```.  
+Go to your Unix env under path ```/home/<your_user_name>/.ssh/``` and add your key in the ```authorized_keys``` file.  
+Save it and exit (ctrl + O / ctrl + X).
